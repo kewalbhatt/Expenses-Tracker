@@ -19,7 +19,7 @@ import * as Yup from "yup";
 import { Formik, FormikHelpers, FormikValues } from "formik";
 
 const Register = () => {
-  const navagation = useNavigation();
+  const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const validationSchema = Yup.object().shape({
@@ -48,23 +48,17 @@ const Register = () => {
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
-          onSubmit={(values) => {
+          onSubmit={(values, reset) => {
             if (!isChecked) {
               Alert.alert("Error", "You must aggree the term and policy");
               return;
             }
             console.log("Form submitted", values);
             Alert.alert("sucess", "Account created");
+            reset.resetForm();
           }}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
+          {({ handleChange, handleSubmit, values, errors, touched }) => (
             <View style={styles.inputContainer}>
               <View style={styles.textField}>
                 <TextInput
@@ -95,11 +89,15 @@ const Register = () => {
               <View
                 style={[
                   styles.textField,
-                  { flexDirection: "row", justifyContent: "space-between" },
+                  {
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  },
                 ]}
               >
                 <TextInput
                   style={{
+                    flex: 1,
                     fontSize: 16,
                     color: "#fff",
                     fontWeight: "bold",
@@ -160,7 +158,7 @@ const Register = () => {
                   />
                 </TouchableOpacity>
                 <Text style={{ color: "#fff", marginLeft: 20 }}>
-                  I agree with privacy policy
+                  I agree with privacy policys
                 </Text>
               </View>
               {/* view for the registe button */}
@@ -293,8 +291,8 @@ const Register = () => {
               <TouchableOpacity
                 style={{ flex: 1, backgroundColor: "#101524" }}
                 onPress={() => {
-                  navagation.navigate("GetStarted");
-                  console.log(navagation);
+                  navigation.navigate("GetStarted");
+                  console.log(navigation);
                 }}
               >
                 <Text style={{ color: "#fff" }}>

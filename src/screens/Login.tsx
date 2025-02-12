@@ -16,9 +16,20 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import Entypo from "@expo/vector-icons/Entypo";
 
 const Login = () => {
-  const navagation = useNavigation();
+  const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSignIn = () => {
+    if (email === "" && password === "") {
+      navigation.navigate("Main");
+      console.log(navigation.navigate);
+    } else {
+      console.log("Error in sign in");
+      console.log(navigation);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" />
@@ -46,6 +57,8 @@ const Login = () => {
               }}
               placeholder="Enter Email Address"
               placeholderTextColor={"white"}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -64,6 +77,8 @@ const Login = () => {
               placeholder="Password"
               secureTextEntry={passwordVisible}
               placeholderTextColor={"white"}
+              value={password}
+              onChangeText={setPassword}
             />
             <TouchableOpacity
               onPress={() => setPasswordVisible(!passwordVisible)}
@@ -118,6 +133,7 @@ const Login = () => {
               alignItems: "center",
               borderRadius: 5,
             }}
+            onPress={handleSignIn}
           >
             <Text style={{ fontSize: 18, fontWeight: 500, color: "#101524" }}>
               Sign in
